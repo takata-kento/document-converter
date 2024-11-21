@@ -1,0 +1,3 @@
+python-dotenv == 1.0.1
+azure-ai-documentintelligence == 1.0.0b4
+injector == 0.22.0
