@@ -14,14 +14,10 @@ class AzureDocumentExtractor(DocumentExtractor):
         self.key = environ.get('DI_KEY')
         self.endpoint = environ.get('DI_ENDPOINT')
 
-    def extract(self, document: IO) -> Optional[List[str]]:
+    def extract(self, document: IO) -> AnalyzeResult:
         document_intelligence_client = DocumentIntelligenceClient(endpoint=self.endpoint, credential=AzureKeyCredential(self.key))
         poller = document_intelligence_client.begin_analyze_document(
             "prebuilt-layout", analyze_request=document, content_type="application/octet-stream"
         )
 
-        result: AnalyzeResult = poller.result()
-        if result.paragraphs:
-            result.paragraphs.sort(key=lambda p: (p.spans.sort(key=lambda s: s.offset), p.spans[0].offset))
-
-            return [paragraph.content for paragraph in result.paragraphs]
+        return poller.result()

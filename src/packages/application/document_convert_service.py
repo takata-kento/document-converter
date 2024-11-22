@@ -14,4 +14,8 @@ class DocumentConvertService:
         self.extractor = extractor
 
     def extractDocument(self, document: IO) -> Optional[List[str]]:
-        return self.extractor.extract(document)
+        result = self.extractor.extract(document)
+        if result.paragraphs:
+            result.paragraphs.sort(key=lambda p: (p.spans.sort(key=lambda s: s.offset), p.spans[0].offset))
+
+            return [paragraph.content for paragraph in result.paragraphs]
