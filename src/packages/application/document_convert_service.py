@@ -1,4 +1,4 @@
-from typing import List, Optional, IO
+from typing import IO
 
 from injector import inject, singleton
 
@@ -13,5 +13,6 @@ class DocumentConvertService:
 
         self.extractor = extractor
 
-    def extractDocument(self, document: IO) -> Optional[List[str]]:
-        return self.extractor.extract(document)
+    def extractDocument(self, document: IO) -> str:
+        extract_doc = self.extractor.extract(document)
+        return extract_doc.content

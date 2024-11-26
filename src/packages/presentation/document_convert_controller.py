@@ -25,9 +25,9 @@ class DocumentConvertController:
         for pdf in pathlib.Path(source_dir).glob('*.pdf'):
             with open(str(pdf), "rb") as file:
                 paragraphs = self.convert_service.extractDocument(file)
-                pathlib.Path(output_dir + '/' + pdf.name.split('.')[0] + ".md").write_bytes('\n\n'.join(paragraphs).encode())
+                pathlib.Path(output_dir + '/' + pdf.name.split('.')[0] + ".md").write_bytes(paragraphs.encode())
 
         for pdf in pathlib.Path(source_dir).glob('*.docx'):
             with open(str(pdf), "rb") as file:
                 paragraphs = self.convert_service.extractDocument(file)
-                pathlib.Path(output_dir + '/' + pdf.name.split('.')[0] + ".md").write_bytes('\n\n'.join(paragraphs).encode())
+                pathlib.Path(output_dir + '/' + pdf.name.split('.')[0] + ".md").write_bytes(paragraphs.encode())
