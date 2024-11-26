@@ -1,4 +1,4 @@
-from typing import List, Optional, IO
+from typing import IO
 
 from injector import inject, singleton
 
@@ -13,9 +13,6 @@ class DocumentConvertService:
 
         self.extractor = extractor
 
-    def extractDocument(self, document: IO) -> Optional[List[str]]:
-        result = self.extractor.extract(document)
-        if result.paragraphs:
-            result.paragraphs.sort(key=lambda p: (p.spans.sort(key=lambda s: s.offset), p.spans[0].offset))
-
-            return [paragraph.content for paragraph in result.paragraphs]
+    def extractDocument(self, document: IO) -> str:
+        extract_doc = self.extractor.extract(document)
+        return extract_doc.content

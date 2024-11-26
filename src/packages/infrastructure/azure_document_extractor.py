@@ -1,5 +1,5 @@
 from os import environ
-from typing import List, Optional, IO
+from typing import IO
 
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.documentintelligence import DocumentIntelligenceClient
@@ -17,7 +17,7 @@ class AzureDocumentExtractor(DocumentExtractor):
     def extract(self, document: IO) -> AnalyzeResult:
         document_intelligence_client = DocumentIntelligenceClient(endpoint=self.endpoint, credential=AzureKeyCredential(self.key))
         poller = document_intelligence_client.begin_analyze_document(
-            "prebuilt-layout", analyze_request=document, content_type="application/octet-stream"
+            "prebuilt-layout", analyze_request=document, content_type="application/octet-stream", output_content_format="markdown"
         )
 
         return poller.result()
