@@ -1,4 +1,4 @@
-from typing import IO
+import pathlib
 
 from injector import inject, singleton
 
@@ -13,6 +13,13 @@ class DocumentConvertService:
 
         self.extractor = extractor
 
-    def extractDocument(self, document: IO) -> str:
-        extract_doc = self.extractor.extract(document)
-        return extract_doc.content
+    def extractDocument(self, source_dir: str, output_dir: str) -> None:
+        for pdf in pathlib.Path(source_dir).glob('*.pdf'):
+            with open(str(pdf), "rb") as file:
+                paragraphs = self.extractor.extract(file)
+                pathlib.Path(output_dir + '/' + pdf.name.split('.')[0] + ".md").write_bytes(paragraphs.content.replace("\n\n\n<table>", "\n\n<table>").encode())
+
+        for docx in pathlib.Path(source_dir).glob('*.docx'):
+            with open(str(docx), "rb") as file:
+                paragraphs = self.extractor.extract(file)
+                pathlib.Path(output_dir + '/' + docx.name.split('.')[0] + ".md").write_bytes(paragraphs.content.replace("\n\n\n<table>", "\n\n<table>").encode())

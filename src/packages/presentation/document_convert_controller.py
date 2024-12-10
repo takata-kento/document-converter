@@ -22,12 +22,4 @@ class DocumentConvertController:
         if not [file for file in pathlib.Path(source_dir).iterdir() if file.is_file()]:
             raise RuntimeError(f"{source_dir} has no files.")
 
-        for pdf in pathlib.Path(source_dir).glob('*.pdf'):
-            with open(str(pdf), "rb") as file:
-                paragraphs = self.convert_service.extractDocument(file)
-                pathlib.Path(output_dir + '/' + pdf.name.split('.')[0] + ".md").write_bytes(paragraphs.replace("\n\n\n<table>", "\n\n<table>").encode())
-
-        for pdf in pathlib.Path(source_dir).glob('*.docx'):
-            with open(str(pdf), "rb") as file:
-                paragraphs = self.convert_service.extractDocument(file)
-                pathlib.Path(output_dir + '/' + pdf.name.split('.')[0] + ".md").write_bytes(paragraphs.replace("\n\n\n<table>", "\n\n<table>").encode())
+        self.convert_service.extractDocument(source_dir, output_dir)
