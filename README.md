@@ -2,6 +2,12 @@
 document-converter converts binary document file to markdown file by Azure Document Intelligence
 
 ## Before Use
+### Runtime Environment
+This Repository run on following environment.
+* Linux
+And if you need extract docx file, install following App.
+* LibreOffice
+
 ### Install packages
 This Repository use following packages.
 * python-dotenv
