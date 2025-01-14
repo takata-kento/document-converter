@@ -13,10 +13,10 @@ class DocumentConvertController:
         self.convert_service = convert_service
 
     def batch_convert_local_files(self, source_dir: str, output_dir: str) -> int:
-        if not pathlib.Path(source_dir).exists:
+        if not pathlib.Path(source_dir).exists():
             raise RuntimeError(f"{source_dir} is not exists.")
 
-        if not pathlib.Path(output_dir).exists:
+        if not pathlib.Path(output_dir).exists():
             pathlib.Path(output_dir).mkdir()
 
         if not [file for file in pathlib.Path(source_dir).iterdir() if file.is_file()]:
