@@ -9,12 +9,7 @@ And if you need extract docx file, install following App.
 * LibreOffice
 
 ### Install packages
-This Repository use following packages.
-* python-dotenv
-* azure-ai-documentintelligence
-* injector
-
-So you should install packages.
+you should install packages.
 
 Open a terminal window in your local environment and install library for Python with [pip](https://pypi.org/project/pip/):
 
@@ -29,6 +24,10 @@ Open `.env` file and edit `DI_KEY` and `DI_ENDPOINT` value.
 ```
 DI_KEY='abcdefghifklmn'
 kI_ENDPOINT='https://xxxxxxxxxxxx.azure.com/'
+AZURE_OPENAI_API_KEY='ABCDEFGHIFKLMN'
+AZURE_OPENAI_ENDPOINT='https://XXXXXXXXXXXX.openai.azure.com/'
+AZURE_OPENAI_API_VERSION='some_api_version'
+AZURE_OPENAI_DEPLOYMENT='some_openai_deployment'
 ```
 
 ## Usage
