@@ -33,7 +33,6 @@ class DocumentConvertService:
             pathlib.Path(tempdir).mkdir(parents=True, exist_ok=True)
 
         for docx in pathlib.Path(source_dir).glob('*.docx'):
-            temp_pdffile_path = tempdir + "/" + docx.name.split(".")[0] + ".pdf"
             self.pdf_generator.generate(str(docx), tempdir)
 
         for pdf in pathlib.Path(source_dir).glob('*.pdf'):
