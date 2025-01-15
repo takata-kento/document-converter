@@ -1,7 +1,6 @@
-import sys
 from os import environ
 
-from injector import inject, Injector
+from injector import Injector
 from dotenv import load_dotenv
 
 from packages.presentation.document_convert_controller import DocumentConvertController
