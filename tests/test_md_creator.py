@@ -14,7 +14,7 @@ sys.path.append(
         )
     )
 )
-import src.packages.domain.md_creator as md_creator
+import src.packages.domain.document_intelligence_md_creator as document_intelligence_md_creator
 import src.packages.domain.image_extractor as image_extractor
 import src.packages.domain.image_summarizer as image_summarizer
 
@@ -23,13 +23,14 @@ class TestMdCreator(unittest.TestCase):
         self.maxDiff = None
         self.img_extractor = MagicMock(spec=image_extractor.ImageExtractor)
         self.img_summarizer = MagicMock(spec=image_summarizer.ImageSummarizer)
-        self.md_creator = md_creator.MdCreator(self.img_extractor, self.img_summarizer)
+        self.document_intelligence_md_creator = document_intelligence_md_creator.DocumentIntelligenceMdCreator(self.img_extractor, self.img_summarizer)
 
     def test_create(self):
         # Given
         with open("tests/fixtures/sample_document_intelligence_result.json") as json_test_data:
             json_load = json.load(json_test_data)
             analyze_result = AnalyzeResult(json_load)
+            analyze_result_as_dict = analyze_result.as_dict()
 
         self.img_extractor.extract.return_value = "extracted_image_data"
         self.img_summarizer.summarize.return_value = "summarized_text"
@@ -97,7 +98,7 @@ Learn how to accelerate your business processes by automating text extraction wi
 '''
 
         # When
-        context = self.md_creator.create(analyze_result, pdf_path)
+        context = self.document_intelligence_md_creator.create(analyze_result_as_dict, pdf_path)
 
         # Then
         self.assertEqual(expect_md_str, context)
